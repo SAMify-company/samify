@@ -1,0 +1,24 @@
+{
+    "BusinessTypes": [
+        {
+            "id": 1,
+            "title": "Small & Medium Business",
+            "image": "/uploads/Small-Medium-Business.webp"
+        },
+        {
+            "id": 2,
+            "title": "Start-Up Business",
+            "image": "/uploads/Start-Up-Business.webp"
+        },
+        {
+            "id": 3,
+            "title": "Agencies",
+            "image": "/uploads/Agencies.webp"
+        },
+        {
+            "id": 4,
+            "title": "Enterprise",
+            "image": "/uploads/Enterprise.webp"
+        }
+    ]
+}
