@@ -89,19 +89,17 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
     if (Object.keys(validation).length === 0) {
       setLoading(true)
       // read from environment variables
-      const serviceId = ''
-      const templateId = ''
-      const publicKey = ''
+      const serviceId = 'service_lilb28i'
+      const templateId = 'template_osrm9kn'
+      const publicKey = 'WgxH0rw0YO3_kkhbs'
 
       const templateParams = {
         uniqueId: generateShortId(form.name, form.phone),
-        from_name: form.name,
-        from_email: 'hello@samify.co.in',
-        from_phone: form.phone,
-        from_message: form.message,
-        from_requestedFor: isMultipleServices ? form.services.join(', ') : form.service,
-        reply_to: form.email,
-        to_email: 'hello@samify.co.in',
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        message: form.message,
+        requested: isMultipleServices ? form.services.join(', ') : form.service,
       }
 
       try {
