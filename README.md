@@ -1,4 +1,4 @@
-# SAMify <sub>[live](https://samify.co.in/)</sub>
+# [SAMify](https://samifyit.netlify.app/) <sub>[live](https://samify.co.in/)</sub>
 
 >**SAMify** is a modern, full-featured digital solutions platform built with React, TypeScript, and Vite. We help businesses grow by providing a wide range of web, mobile, and digital services, all with a focus on quality, performance, and user experience.
 
