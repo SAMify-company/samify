@@ -84,9 +84,30 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
     setErrors(validation)
 
     if (Object.keys(validation).length === 0) {
-      const formElement = e.target as HTMLFormElement
-      if (formElement) {
-        formElement.submit()
+      try {
+        const formData = new FormData()
+        formData.append('form-name', 'contact')
+        formData.append('name', form.name)
+        formData.append('email', form.email)
+        formData.append('phone', form.phone)
+        formData.append('message', form.message)
+        formData.append('service', form.service)
+        formData.append('services', form.services.join(', '))
+
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            'form-name': 'contact',
+            name: form.name,
+            email: form.email,
+            phone: form.phone,
+            message: form.message,
+            service: form.service,
+            services: form.services.join(', '),
+          }).toString(),
+        })
+
         setSubmitted(true)
         sessionStorage.removeItem('selectedService')
         setServiceDisabled(false)
@@ -98,6 +119,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
           service: '',
           services: [],
         })
+      } catch (error) {
+        console.error('Form submission failed:', error)
+        alert('Failed to send message. Please try again later.')
       }
     }
   }
@@ -152,7 +176,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
         </Typography>
       )}
 
-      {/* Name */}
       <TextField
         label="Name"
         name="name"
@@ -166,7 +189,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
         autoFocus
       />
 
-      {/* Email */}
       <TextField
         label="Email"
         name="email"
@@ -180,7 +202,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
         margin="normal"
       />
 
-      {/* Phone */}
       <TextField
         label="Phone Number"
         name="phone"
@@ -194,7 +215,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
         margin="normal"
       />
 
-      {/* Services Autocomplete */}
       <FormControl fullWidth margin="normal">
         {isMultipleServices ? (
           <Autocomplete
@@ -249,7 +269,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
         )}
       </FormControl>
 
-      {/* Message */}
       <TextField
         label="Message"
         name="message"
@@ -264,7 +283,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
         spellCheck='true'
       />
 
-      {/* Buttons */}
       <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, mt: 2 }}>
         <Button type="submit" variant="contained" fullWidth>
           Send
@@ -274,7 +292,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
         </Button>
       </Box>
 
-      {/* Submission Popup */}
       {submitted && (
         <PopupHOC open={submitted} onClose={() => setSubmitted(false)}>
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3 }}>
