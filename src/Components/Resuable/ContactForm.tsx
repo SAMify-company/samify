@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import emailjs from '@emailjs/browser'
 import {
   Box,
   TextField,
@@ -11,7 +10,6 @@ import {
 } from '@mui/material'
 import Autocomplete from '@mui/material/Autocomplete'
 import PopupHOC from './Popup'
-import { generateShortId } from '../../Helper/unique'
 
 interface ContactFormProps {
   serviceOptions: string[]
@@ -31,7 +29,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitted, setSubmitted] = useState(false)
   const [serviceDisabled, setServiceDisabled] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [isMultipleServices, setIsMultipleServices] = useState(false)
 
   useEffect(() => {
@@ -87,25 +84,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
     setErrors(validation)
 
     if (Object.keys(validation).length === 0) {
-      setLoading(true)
-      // read from environment variables
-      const serviceId = 'service_z2iinha'
-      const templateId = 'template_by386q9'
-      const publicKey = 'LYPn13_gE1M3_YjiJ'
-
-      const templateParams = {
-        uniqueId: generateShortId(form.name, form.phone),
-        from_name: form.name,
-        from_email: 'hello@samify.co.in',
-        from_phone: form.phone,
-        from_message: form.message,
-        from_requestedFor: isMultipleServices ? form.services.join(', ') : form.service,
-        reply_to: form.email,
-        to_email: 'hello@samify.co.in',
-      }
-
-      try {
-        await emailjs.send(serviceId, templateId, templateParams, publicKey)
+      const formElement = e.target as HTMLFormElement
+      if (formElement) {
+        formElement.submit()
         setSubmitted(true)
         sessionStorage.removeItem('selectedService')
         setServiceDisabled(false)
@@ -117,11 +98,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
           service: '',
           services: [],
         })
-      } catch (error) {
-        console.error('Error submitting form:', error)
-        alert('Failed to send message. Please try again later.')
-      } finally {
-        setLoading(false)
       }
     }
   }
@@ -144,6 +120,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
   return (
     <Box
       component="form"
+      name="contact"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
       sx={{
         maxWidth: 520,
@@ -156,6 +136,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
         position: 'relative',
       }}
     >
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="bot-field" />
+
       {showTitle && (
         <Typography
           variant="h4"
@@ -168,133 +151,128 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
           Get in Touch
         </Typography>
       )}
-        {/* Name */}
-        <TextField
-          id="contact-name"
-          label="Name"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          error={!!errors.name}
-          helperText={errors.name}
-          fullWidth
-          required
-          margin="normal"
-          autoFocus
-        />
 
-        {/* Email */}
-        <TextField
-          id="contact-email"
-          label="Email"
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={handleChange}
-          error={!!errors.email}
-          helperText={errors.email}
-          fullWidth
-          required
-          margin="normal"
-        />
+      {/* Name */}
+      <TextField
+        label="Name"
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+        error={!!errors.name}
+        helperText={errors.name}
+        fullWidth
+        required
+        margin="normal"
+        autoFocus
+      />
 
-        {/* Phone */}
-        <TextField
-          id="contact-phone"
-          label="Phone Number"
-          name="phone"
-          type="tel"
-          value={form.phone}
-          onChange={handleChange}
-          error={!!errors.phone}
-          helperText={errors.phone}
-          fullWidth
-          required
-          margin="normal"
-        />
+      {/* Email */}
+      <TextField
+        label="Email"
+        name="email"
+        type="email"
+        value={form.email}
+        onChange={handleChange}
+        error={!!errors.email}
+        helperText={errors.email}
+        fullWidth
+        required
+        margin="normal"
+      />
 
-        {/* Services Autocomplete */}
-        <FormControl fullWidth margin="normal">
-          {isMultipleServices ? (
-            <Autocomplete
-              id="services-autocomplete"
-              multiple
-              disableCloseOnSelect
-              options={serviceOptions}
-              value={form.services}
-              onChange={(_, value) => {
-                setForm(prev => ({ ...prev, services: value }))
-              }}
-              renderTags={(value: string[], getTagProps) =>
-                value.map((option, index) => (
-                  <Chip
-                    label={option}
-                    {...getTagProps({ index })}
-                    variant="outlined"
-                    color="primary"
-                    key={option}
-                  />
-                ))
-              }
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Services"
-                  name="services"
-                  error={!!errors.services}
-                  helperText={errors.service || 'Multiple services can be selected'}
-                  fullWidth
+      {/* Phone */}
+      <TextField
+        label="Phone Number"
+        name="phone"
+        type="tel"
+        value={form.phone}
+        onChange={handleChange}
+        error={!!errors.phone}
+        helperText={errors.phone}
+        fullWidth
+        required
+        margin="normal"
+      />
+
+      {/* Services Autocomplete */}
+      <FormControl fullWidth margin="normal">
+        {isMultipleServices ? (
+          <Autocomplete
+            multiple
+            disableCloseOnSelect
+            options={serviceOptions}
+            value={form.services}
+            onChange={(_, value) => {
+              setForm(prev => ({ ...prev, services: value }))
+            }}
+            renderTags={(value: string[], getTagProps) =>
+              value.map((option, index) => (
+                <Chip
+                  label={option}
+                  {...getTagProps({ index })}
+                  variant="outlined"
+                  color="primary"
+                  key={option}
                 />
-              )}
-            />
-          ) : (
-            <TextField
-              select
-              id="service-select"
-              label="Service"
-              name="service"
-              value={form.service}
-              onChange={handleSelectChange}
-              disabled={serviceDisabled}
-              error={!!errors.service}
-              helperText={errors.service}
-              fullWidth
-              required
-            >
-              {serviceOptions.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </TextField>
-          )}
-        </FormControl>
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Services"
+                name="services"
+                error={!!errors.services}
+                helperText={errors.service || 'Multiple services can be selected'}
+                fullWidth
+              />
+            )}
+          />
+        ) : (
+          <TextField
+            select
+            label="Service"
+            name="service"
+            value={form.service}
+            onChange={handleSelectChange}
+            disabled={serviceDisabled}
+            error={!!errors.service}
+            helperText={errors.service}
+            fullWidth
+            required
+          >
+            {serviceOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+      </FormControl>
 
-        {/* Message */}
-        <TextField
-          id="contact-message"
-          label="Message"
-          name="message"
-          value={form.message}
-          onChange={handleChange}
-          error={!!errors.message}
-          helperText={ errors.message || 'Please provide details about your request.'}
-          fullWidth
-          margin="normal"
-          multiline
-          minRows={3}
-          spellCheck='true'
-        />
+      {/* Message */}
+      <TextField
+        label="Message"
+        name="message"
+        value={form.message}
+        onChange={handleChange}
+        error={!!errors.message}
+        helperText={errors.message || 'Please provide details about your request.'}
+        fullWidth
+        margin="normal"
+        multiline
+        minRows={3}
+        spellCheck='true'
+      />
 
-        {/* Buttons */}
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, mt: 2 }}>
-          <Button type="submit" variant="contained" fullWidth disabled={loading}>
-            {loading ? 'Sending...' : 'Send'}
-          </Button>
-          <Button variant="outlined" onClick={handleClear} fullWidth>
-            Clear
-          </Button>
-        </Box>
+      {/* Buttons */}
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, mt: 2 }}>
+        <Button type="submit" variant="contained" fullWidth>
+          Send
+        </Button>
+        <Button variant="outlined" onClick={handleClear} fullWidth>
+          Clear
+        </Button>
+      </Box>
 
       {/* Submission Popup */}
       {submitted && (
@@ -324,10 +302,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
               </svg>
             </Box>
             <Typography color="success.main" align="center" fontWeight={600}>
-              Thank you! Your request has been sent. For further assistance, reach out to our mail{' '}
-              <Typography color="primary" component={'span'}>
-                hello@samify.co.in
-              </Typography>
+              Thank you! Your request has been sent. We’ll be in touch soon.
             </Typography>
           </Box>
         </PopupHOC>
