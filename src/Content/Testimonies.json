@@ -1,0 +1,25 @@
+{
+    "Testimonies": [
+        {
+            "id": 1,
+            "name": "John Doe",
+            "role": "Software Engineer",
+            "company": "Tech Solutions",
+            "text": "Samify has transformed the way we manage our projects. The intuitive interface and powerful features have made collaboration seamless."
+        },
+        {
+            "id": 2,
+            "name": "Jane Smith",
+            "role": "Product Manager",
+            "company": "Innovatech",
+            "text": "I've been using Samify for a while now, and it's truly amazing how much time I save on project planning and execution."
+        },
+        {
+            "id": 3,
+            "name": "Alice Johnson",
+            "role": "UX Designer",
+            "company": "Creative Minds",
+            "text": "The design tools in Samify are top-notch. They allow me to create stunning prototypes quickly and efficiently."
+        }
+    ]
+}

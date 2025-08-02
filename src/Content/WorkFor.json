@@ -1,0 +1,74 @@
+{
+    "WorkFor": [
+        {
+            "id": 1,
+            "title": "Agriculture",
+            "image": "/uploads/Agriculture.webp"
+        },
+        {
+            "id": 2,
+            "title": "Education",
+            "image": "/uploads/Education.webp"
+        },
+        {
+            "id": 3,
+            "title": "Healthcare",
+            "image": "/uploads/Healthcare.webp"
+        },
+        {
+            "id": 4,
+            "title": "Manufacturing",
+            "image": "/uploads/Manufacturing.webp"
+        },
+        {
+            "id": 5,
+            "title": "Real Estate",
+            "image": "/uploads/Real Estate.webp"
+        },
+        {
+            "id": 6,
+            "title": "Legal",
+            "image": "/uploads/Legal.webp"
+        },
+        {
+            "id": 7,
+            "title": "Insurance",
+            "image": "/uploads/Insurance.webp"
+        },
+        {
+            "id": 8,
+            "title": "Textile",
+            "image": "/uploads/Textile.webp"
+        },
+        {
+            "id": 9,
+            "title": "Tourism",
+            "image": "/uploads/Tourism.webp"
+        },
+        {
+            "id": 10,
+            "title": "Trade",
+            "image": "/uploads/Trade.webp"
+        },
+        {
+            "id": 11,
+            "title": "Technology",
+            "image": "/uploads/Technology.webp"
+        },
+        {
+            "id": 12,
+            "title": "Food Industry",
+            "image": "/uploads/Food Industry.webp"
+        },
+        {
+            "id": 13,
+            "title": "E-Commerce",
+            "image": "/uploads/E-Commerce.webp"
+        },
+        {
+            "id": 14,
+            "title": "Government",
+            "image": "/uploads/Government.webp"
+        }
+    ]
+}

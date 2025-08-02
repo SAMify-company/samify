@@ -1,0 +1,173 @@
+{
+  "Services": [
+    {
+      "priority": 1,
+      "isActive": true,
+      "title": "Web Development",
+      "tags": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Java(core)",
+        "Python",
+        "React",
+        "NodeJs",
+        "PHP",
+        "WordPress",
+        "SQL",
+        "MySQL",
+        "MongoDB",
+        "Responsive Design",
+        "SEO",
+        "Performance Optimization",
+        "Web Security",
+        "API Integration"
+      ],
+      "icon": "/uploads/web.png",
+      "id": "web-development",
+      "description": "We create responsive, SEO-friendly, and high-performance websites that elevate brand identity and boost user engagement.",
+      "features": [
+        "Corporate Websites",
+        "eCommerce Solutions",
+        "Custom Web Portals",
+        "CMS Development",
+        "Web App Development"
+      ],
+      "category": "development"
+    },
+    {
+      "priority": 2,
+      "isActive": true,
+      "title": "Mobile App Development",
+      "tags": [
+        "Flutter",
+        "React Native",
+        "Native Android/iOS",
+        "Swift",
+        "Kotlin", 
+        "Java",
+        "XML"
+      ],
+      "icon": "/uploads/mobile.png",
+      "id": "mobile-development",
+      "description": "We design and develop intuitive, user-friendly mobile applications for Android and iOS that solve real-world problems.",
+      "features": [
+        "Cross-platform Mobile Apps",
+        "Custom Native Apps",
+        "App UI/UX Design",
+        "App Store Deployment"
+      ],
+      "category": "development"
+    },
+    {
+      "priority": 3,
+      "isActive": true,
+      "title": "UI/UX Design",
+      "tags": [
+        "Figma",
+        "Adobe XD",
+        "Sketch",
+        "Canva"
+      ],
+      "icon": "/uploads/uiux.png",
+      "id": "ui-ux-design",
+      "description": "We build user-centric interfaces that are visually appealing, functional, and optimized for conversion.",
+      "features": [
+        "Wireframing & Prototyping",
+        "Mobile & Web UI/UX",
+        "Design Systems & Branding",
+        "User Flow Optimization"
+      ],
+      "category": "design"
+    },
+    {
+      "priority": 4,
+      "isActive": true,
+      "title": "Digital Marketing",
+      "tags": [
+        "SMM",
+        "SEM",
+        "Google Ads",
+        "Content Marketing",
+        "Email Marketing"
+      ],
+      "icon": "/uploads/Digitalmarketing.png",
+      "id": "digital-marketing",
+      "description": "We provide end-to-end digital marketing services to build your brand, drive traffic, and increase ROI.",
+      "features": [
+        "Social Media Marketing (SMM)",
+        "Search Engine Marketing (SEM)",
+        "Google Ads & Analytics",
+        "Content Marketing",
+        "Email Marketing Campaigns"
+      ],
+      "category": "marketing"
+    },
+    {
+      "priority": 5,
+      "isActive": true,
+      "title": "SEO Services",
+      "tags": [
+        "On-page SEO",
+        "Off-page SEO",
+        "Technical SEO",
+        "Local SEO"
+      ],
+      "icon": "/uploads/ItServices.png",
+      "id": "seo-services",
+      "description": "We help your business rank higher in search results through proven strategies.",
+      "features": [
+        "On-page & Off-page SEO",
+        "Keyword Research",
+        "Technical SEO Audits",
+        "Link Building",
+        "Local SEO Optimization"
+      ],
+      "category": "marketing"
+    },
+    {
+      "priority": 6,
+      "isActive": true,
+      "title": "BPO & Data Entry",
+      "tags": [
+        "Data Entry",
+        "Data Processing",
+        "CRM",
+        "Lead Generation"
+      ],
+      "icon": "/uploads/Multimedia.png",
+      "id": "bpo-data-entry",
+      "description": "We deliver accurate, confidential, and high-volume data processing solutions tailored to business needs.",
+      "features": [
+        "Online/Offline Data Entry",
+        "Data Cleansing & Conversion",
+        "CRM Updates",
+        "Lead Generation Support",
+        "Admin Assistance"
+      ],
+      "category": "outsourcing"
+    },
+    {
+      "priority": 7,
+      "isActive": true,
+      "title": "ITES (Information Technology Enabled Services)",
+      "tags": [
+        "Virtual Assistant",
+        "Support",
+        "Content Moderation",
+        "Helpdesk"
+      ],
+      "icon": "/uploads/Ites.png",
+      "id": "ites-services",
+      "description": "Flexible and scalable outsourcing solutions for non-core but critical business functions.",
+      "features": [
+        "Virtual Assistance",
+        "Email/Chat Support",
+        "Content Moderation",
+        "Technical Helpdesk",
+        "Data Processing & Mining"
+      ],
+      "category": "outsourcing"
+    }
+  ]
+}

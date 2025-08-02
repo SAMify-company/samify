@@ -1,0 +1,52 @@
+{
+  "FAQs": [
+    {
+      "question": "What does samify do?",
+      "answer": "Samify is a platform that connects users with service providers for various tasks and services"
+    },
+    {
+      "question": "What services does your IT firm offer?",
+      "answer": "We provide end-to-end digital solutions including Web Design & Development, Mobile App Development, UI/UX Design, SEO, Digital Marketing, BPO Services, ITES, and Data Entry."
+    },
+    {
+      "question": "How long does it take to build a website or mobile app?",
+      "answer": "The timeline depends on project complexity. Basic websites can take 1-2 weeks, while custom apps or platforms may take 4-12 weeks. We provide clear timelines after the initial consultation."
+    },
+    {
+      "question": "What industries do you specialize in?",
+      "answer": "We serve a wide range of industries, including e-commerce, healthcare, education, real estate, logistics, finance, and more. Our solutions are customized for each client's needs."
+    },
+    {
+      "question": "Do you offer SEO and digital marketing services?",
+      "answer": "Yes! Our digital marketing team offers comprehensive services including on-page/off-page SEO, social media marketing, content creation, Google Ads, and performance analytics."
+    },
+    {
+      "question": "Can you redesign our existing website or app?",
+      "answer": "Absolutely. We specialize in modernizing outdated websites or apps with fresh designs, improved performance, and better user experiences, without losing your existing data or branding."
+    },
+    {
+      "question": "What technologies do you use for development?",
+      "answer": "We work with modern tech stacks such as HTML5, CSS3, JavaScript, React, Angular, Node.js, PHP, Python, Flutter, Swift, and more - always choosing the right tools for your goals."
+    },
+    {
+      "question": "How do you ensure data security and confidentiality?",
+      "answer": "We follow strict data security protocols, use NDA agreements, secure hosting environments, and regular backups. Your business data is safe and confidential with us."
+    },
+    {
+      "question": "What is your pricing model?",
+      "answer": "We offer flexible pricing based on project scope - fixed-price, hourly, or monthly retainers. After understanding your requirements, we'll share a transparent and competitive quote."
+    },
+    {
+      "question": "Do you offer ongoing support or maintenance?",
+      "answer": "Yes, we provide post-launch support, maintenance, updates, and performance monitoring for all our services to ensure long-term success and smooth operation."
+    },
+    {
+      "question": "How do we get started with your team?",
+      "answer": "Simple! Contact us through our website, email, or phone to schedule a free consultation. We'll understand your needs, provide a tailored proposal, and get things moving fast."
+    },
+    {
+      "question": "Is there a cancellation policy?",
+      "answer": "Yes, we have a cancellation policy that allows users to cancel bookings under certain conditions. Please refer to our terms and conditions for more details check quick nav's."
+    }
+  ]
+}

@@ -1,0 +1,280 @@
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: 'public/uploads'
+public_folder: '/uploads'
+
+collections:
+  - name: 'faqs'
+    label: 'FAQs'
+    access:
+      roles: [admin, editor]
+    files:
+      - label: 'AllFAQs'
+        name: 'AllFAQs'
+        file: 'src/Content/FAQs.json'
+        format: 'json'
+        fields:
+          - label: 'FAQs'
+            name: 'FAQs'
+            widget: 'list'
+            label_singular: 'FAQ'
+            fields:
+              - label: 'Question'
+                name: 'question'
+                widget: 'string'
+              - label: 'Answer'
+                name: 'answer'
+                widget: 'text'
+  - name: 'services'
+    label: 'Services'
+    access:
+      roles: [admin, editor]
+    files: 
+      - label: 'ServicesData'
+        name: 'ServicesData'
+        file: 'src/Content/ServicesList.json'
+        format: 'json'
+        fields:
+          - label: 'Services'
+            name: 'Services'
+            widget: 'list'
+            label_singular: 'Service'
+            fields:
+              - label: 'ID'
+                name: 'id'
+                widget: 'string'
+              - label: 'Title'
+                name: 'title'
+                widget: 'string'
+              - label: 'Description'
+                name: 'description'
+                widget: 'text'
+              - label: 'Category'
+                name: 'category'
+                widget: 'string'
+              - label: 'Tags'
+                name: 'tags'
+                widget: 'list'
+                field:
+                  { label: 'Tag', name: 'tag', widget: 'string' }
+              - label: 'Features'
+                name: 'features'
+                widget: 'list'
+                field:
+                  { label: 'Feature', name: 'feature', widget: 'string' }
+              - label: 'Icon'
+                name: 'icon'
+                widget: 'image'
+              - label: 'Priority'
+                name: 'priority'
+                widget: 'number'
+              - label: 'Is Active'
+                name: 'isActive'
+                widget: 'boolean'
+  - name: 'testimonies'
+    label: 'Testimonies'
+    access:
+      roles: [admin, editor]
+    files:
+      - label: 'AllTestimonies'
+        name: 'AllTestimonies'
+        file: 'src/Content/Testimonies.json'
+        format: 'json'
+        fields:
+          - label: 'Testimonies'
+            name: 'Testimonies'
+            widget: 'list'
+            label_singular: 'Testimony'
+            fields:
+              - label: 'ID'
+                name: 'id'
+                widget: 'number'
+              - label: 'Name'
+                name: 'name'
+                widget: 'string'
+              - label: 'Role'
+                name: 'role'
+                widget: 'string'
+              - label: 'Company'
+                name: 'company'
+                widget: 'string'
+              - label: 'Text'
+                name: 'text'
+                widget: 'text'
+  - name: 'videos'
+    label: 'Videos'
+    access:
+      roles: [admin, editor]
+    files:
+      - label: 'AllVideos'
+        name: 'AllVideos'
+        file: 'src/Content/Videos.json'
+        format: 'json'
+        fields:
+          - label: 'Videos'
+            name: 'Videos'
+            widget: 'list'
+            label_singular: 'Video'
+            fields:
+              - label: 'ID'
+                name: 'id'
+                widget: 'string'
+              - label: 'Title'
+                name: 'title'
+                widget: 'string'
+              - label: 'Link'
+                name: 'link'
+                widget: 'string'
+  - name: 'carouselData'
+    label: 'Carousel Data'
+    access:
+      roles: [admin, editor]
+    files:
+      - label: 'AllCarouselData'
+        name: 'AllCarouselData'
+        file: 'src/Content/CarouselData.json'
+        format: 'json'
+        fields:
+          - label: 'Carousel Data'
+            name: 'CarouselData'
+            widget: 'list'
+            label_singular: 'Carousel Item'
+            fields:
+              - label: 'Short Description'
+                name: 'shortDesc'
+                widget: 'string'
+              - label: 'Title'
+                name: 'title'
+                widget: 'string'
+              - label: 'Long Description'
+                name: 'longDesc'
+                widget: 'text'
+  - name: 'about'
+    label: 'About Section'
+    access:
+      roles: [admin, editor]
+    files:
+      - label: 'AboutContent'
+        name: 'AboutContent'
+        file: 'src/Content/About.json'
+        format: 'json'
+        fields:
+          - label: 'About'
+            name: 'About'
+            widget: 'object'
+            fields:
+              - label: 'Main Title'
+                name: 'mainTitle'
+                widget: 'string'
+              - label: 'Main Description'
+                name: 'mainDescription'
+                widget: 'text'
+              - label: 'Mission'
+                name: 'mission'
+                widget: 'object'
+                fields:
+                  - label: 'Title'
+                    name: 'title'
+                    widget: 'string'
+                  - label: 'Description'
+                    name: 'description'
+                    widget: 'text'
+              - label: 'Vision'
+                name: 'vision'
+                widget: 'object'
+                fields:
+                  - label: 'Title'
+                    name: 'title'
+                    widget: 'string'
+                  - label: 'Description'
+                    name: 'description'
+                    widget: 'text'
+              - label: 'Slogan'
+                name: 'slogan'
+                widget: 'object'
+                fields:
+                  - label: 'Title'
+                    name: 'title'
+                    widget: 'string'
+                  - label: 'Description'
+                    name: 'description'
+                    widget: 'string'
+  - name: 'socialMedia'
+    label: 'Social Media Links'
+    access:
+      roles: [admin, editor]
+    files:
+      - label: 'SocialMediaLinks'
+        name: 'SocialMediaLinks'
+        file: 'src/Content/SocialMedia.json'
+        format: 'json'
+        fields:
+          - label: 'Social Media'
+            name: 'SocialMedias'
+            widget: 'list'
+            label_singular: 'Social Media Link'
+            fields:
+              - label: 'ID'
+                name: 'id'
+                widget: 'number'
+              - label: 'Title'
+                name: 'title'
+                widget: 'string'
+              - label: 'URL'
+                name: 'url'
+                widget: 'string'
+              - label: 'Icon'
+                name: 'icon'
+                widget: 'image'
+  - name: 'workFor'
+    label: 'Work For Section'
+    access:
+      roles: [admin, editor]
+    files:
+      - label: 'WorkForData'
+        name: 'WorkForData'
+        file: 'src/Content/WorkFor.json'
+        format: 'json'
+        fields:
+          - label: 'Work For'
+            name: 'WorkFor'
+            widget: 'list'
+            label_singular: 'Work For Item'
+            fields:
+              - label: 'ID'
+                name: 'id'
+                widget: 'number'
+              - label: 'Title'
+                name: 'title'
+                widget: 'string'
+              - label: 'Image'
+                name: 'image'
+                widget: 'image'
+  - name: 'BussinessTypes'
+    label: 'Business Types'
+    access:
+      roles: [admin, editor]
+    files:
+      - label: 'BusinessTypesData'
+        name: 'BusinessTypesData'
+        file: 'src/Content/BusinessTypes.json'
+        format: 'json'
+        fields:
+          - label: 'Business Types'
+            name: 'BusinessTypes'
+            widget: 'list'
+            label_singular: 'Business Type'
+            fields:
+              - label: 'ID'
+                name: 'id'
+                widget: 'number'
+              - label: 'Title'
+                name: 'title'
+                widget: 'string'
+              - label: 'Image'
+                name: 'image'
+                widget: 'image'
