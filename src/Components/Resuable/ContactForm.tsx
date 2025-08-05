@@ -88,13 +88,17 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
 
     if (Object.keys(validation).length === 0) {
       setLoading(true)
-      // read from environment variables
-      const serviceId = 'service_lilb28i'
-      const templateId = 'template_osrm9kn'
-      const publicKey = 'WgxH0rw0YO3_kkhbs'
 
-      const templateParams = {
-        uniqueId: generateShortId(form.name, form.phone),
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      const googleScriptURL = import.meta.env.VITE_GOOGLE_SCRIPT_URL
+      const contactEmail = import.meta.env.VITE_CONTACT_EMAIL
+
+      const shortId = generateShortId(form.name, form.phone)
+
+      const formData = {
+        uniqueId: shortId,
         name: form.name,
         email: form.email,
         phone: form.phone,
@@ -102,8 +106,27 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
         requested: isMultipleServices ? form.services.join(', ') : form.service,
       }
 
+      const emailParams = {
+        ...formData,
+        from_email: contactEmail,
+        reply_to: form.email,
+        to_email: contactEmail,
+      }
+
       try {
-        await emailjs.send(serviceId, templateId, templateParams, publicKey)
+        // 1. Send email
+        await emailjs.send(serviceId, templateId, emailParams, publicKey)
+
+        // 2. Save to Google Sheets
+        await fetch(googleScriptURL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify(formData),
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8',
+          }
+        })
+
         setSubmitted(true)
         sessionStorage.removeItem('selectedService')
         setServiceDisabled(false)
@@ -166,133 +189,133 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
           Get in Touch
         </Typography>
       )}
-        {/* Name */}
-        <TextField
-          id="contact-name"
-          label="Name"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          error={!!errors.name}
-          helperText={errors.name}
-          fullWidth
-          required
-          margin="normal"
-          autoFocus
-        />
+      {/* Name */}
+      <TextField
+        id="contact-name"
+        label="Name"
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+        error={!!errors.name}
+        helperText={errors.name}
+        fullWidth
+        required
+        margin="normal"
+        autoFocus
+      />
 
-        {/* Email */}
-        <TextField
-          id="contact-email"
-          label="Email"
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={handleChange}
-          error={!!errors.email}
-          helperText={errors.email}
-          fullWidth
-          required
-          margin="normal"
-        />
+      {/* Email */}
+      <TextField
+        id="contact-email"
+        label="Email"
+        name="email"
+        type="email"
+        value={form.email}
+        onChange={handleChange}
+        error={!!errors.email}
+        helperText={errors.email}
+        fullWidth
+        required
+        margin="normal"
+      />
 
-        {/* Phone */}
-        <TextField
-          id="contact-phone"
-          label="Phone Number"
-          name="phone"
-          type="tel"
-          value={form.phone}
-          onChange={handleChange}
-          error={!!errors.phone}
-          helperText={errors.phone}
-          fullWidth
-          required
-          margin="normal"
-        />
+      {/* Phone */}
+      <TextField
+        id="contact-phone"
+        label="Phone Number"
+        name="phone"
+        type="tel"
+        value={form.phone}
+        onChange={handleChange}
+        error={!!errors.phone}
+        helperText={errors.phone}
+        fullWidth
+        required
+        margin="normal"
+      />
 
-        {/* Services Autocomplete */}
-        <FormControl fullWidth margin="normal">
-          {isMultipleServices ? (
-            <Autocomplete
-              id="services-autocomplete"
-              multiple
-              disableCloseOnSelect
-              options={serviceOptions}
-              value={form.services}
-              onChange={(_, value) => {
-                setForm(prev => ({ ...prev, services: value }))
-              }}
-              renderTags={(value: string[], getTagProps) =>
-                value.map((option, index) => (
-                  <Chip
-                    label={option}
-                    {...getTagProps({ index })}
-                    variant="outlined"
-                    color="primary"
-                    key={option}
-                  />
-                ))
-              }
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Services"
-                  name="services"
-                  error={!!errors.services}
-                  helperText={errors.service || 'Multiple services can be selected'}
-                  fullWidth
+      {/* Services Autocomplete */}
+      <FormControl fullWidth margin="normal">
+        {isMultipleServices ? (
+          <Autocomplete
+            id="services-autocomplete"
+            multiple
+            disableCloseOnSelect
+            options={serviceOptions}
+            value={form.services}
+            onChange={(_, value) => {
+              setForm(prev => ({ ...prev, services: value }))
+            }}
+            renderTags={(value: string[], getTagProps) =>
+              value.map((option, index) => (
+                <Chip
+                  label={option}
+                  {...getTagProps({ index })}
+                  variant="outlined"
+                  color="primary"
+                  key={option}
                 />
-              )}
-            />
-          ) : (
-            <TextField
-              select
-              id="service-select"
-              label="Service"
-              name="service"
-              value={form.service}
-              onChange={handleSelectChange}
-              disabled={serviceDisabled}
-              error={!!errors.service}
-              helperText={errors.service}
-              fullWidth
-              required
-            >
-              {serviceOptions.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </TextField>
-          )}
-        </FormControl>
+              ))
+            }
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Services"
+                name="services"
+                error={!!errors.services}
+                helperText={errors.service || 'Multiple services can be selected'}
+                fullWidth
+              />
+            )}
+          />
+        ) : (
+          <TextField
+            select
+            id="service-select"
+            label="Service"
+            name="service"
+            value={form.service}
+            onChange={handleSelectChange}
+            disabled={serviceDisabled}
+            error={!!errors.service}
+            helperText={errors.service}
+            fullWidth
+            required
+          >
+            {serviceOptions.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+        )}
+      </FormControl>
 
-        {/* Message */}
-        <TextField
-          id="contact-message"
-          label="Message"
-          name="message"
-          value={form.message}
-          onChange={handleChange}
-          error={!!errors.message}
-          helperText={ errors.message || 'Please provide details about your request.'}
-          fullWidth
-          margin="normal"
-          multiline
-          minRows={3}
-          spellCheck='true'
-        />
+      {/* Message */}
+      <TextField
+        id="contact-message"
+        label="Message"
+        name="message"
+        value={form.message}
+        onChange={handleChange}
+        error={!!errors.message}
+        helperText={errors.message || 'Please provide details about your request.'}
+        fullWidth
+        margin="normal"
+        multiline
+        minRows={3}
+        spellCheck='true'
+      />
 
-        {/* Buttons */}
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, mt: 2 }}>
-          <Button type="submit" variant="contained" fullWidth disabled={loading}>
-            {loading ? 'Sending...' : 'Send'}
-          </Button>
-          <Button variant="outlined" onClick={handleClear} fullWidth>
-            Clear
-          </Button>
-        </Box>
+      {/* Buttons */}
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, mt: 2 }}>
+        <Button type="submit" variant="contained" fullWidth disabled={loading}>
+          {loading ? 'Sending...' : 'Send'}
+        </Button>
+        <Button variant="outlined" onClick={handleClear} fullWidth>
+          Clear
+        </Button>
+      </Box>
 
       {/* Submission Popup */}
       {submitted && (
