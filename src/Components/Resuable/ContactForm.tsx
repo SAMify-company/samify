@@ -114,10 +114,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ serviceOptions, showTitle = t
       }
 
       try {
-        // 1. Send email
+        // Send email
         await emailjs.send(serviceId, templateId, emailParams, publicKey)
 
-        // 2. Save to Google Sheets
+        // Save to Google Sheets
         await fetch(googleScriptURL, {
           method: 'POST',
           mode: 'no-cors',
