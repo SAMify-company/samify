@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /admin/*
+Crawl-delay: 10
+
+Sitemap: https://samify.co.in/sitemap.xml
